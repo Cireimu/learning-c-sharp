@@ -17,7 +17,44 @@ namespace GradeBook
         // instance member of class book, means that any Book object created has access to all the methods
         public void AddGrade(double grade)
         {
-            grades.Add(grade);
+            if (grade <= 100 && grade >= 0)
+            {
+                grades.Add(grade);
+            }
+            else
+            {
+                Console.WriteLine("Invalid value");
+            }
+        }
+
+        public void AddLetterGrade(char letter)
+        {
+            switch (letter)
+            {
+                case 'A':
+                    AddGrade(90);
+                    break;
+
+                case 'B':
+                    AddGrade(80);
+                    break;
+
+                case 'C':
+                    AddGrade(70);
+                    break;
+
+                case 'D':
+                    AddGrade(60);
+                    break;
+
+                case 'F':
+                    AddGrade(50);
+                    break;
+
+                default:
+                    AddGrade(0);
+                    break;
+            }
         }
 
         public Statistics GetStatistics()
@@ -26,12 +63,32 @@ namespace GradeBook
             result.Average = 0.0;
             result.High = double.MinValue;
             result.Low = double.MaxValue;
-            foreach (var grade in grades)
+
+            var index = 0;
+            while (index < grades.Count)
             {
-                result.Low = Math.Min(grade, result.Low);
-                result.High = Math.Max(grade, result.High);
-                result.Average += grade;
+
+                if (grades[index] == 42.1)
+                {
+                    //  stops the loop early, then jumps to line 56
+                    // break;
+
+                    // takes us to the next itteration of the loop
+                    // continue;
+
+                    // using a identifier word you can make the loop jump to a certain place
+                    // goto done;
+                }
+                result.Low = Math.Min(grades[index], result.Low);
+                result.High = Math.Max(grades[index], result.High);
+                result.Average += grades[index];
+                index += 1;
             }
+
+            // for(var index = 0; index < grades.Count; index += 1)
+            // {
+            // 
+            // }
             result.Average /= grades.Count;
 
             return result;
